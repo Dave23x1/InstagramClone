@@ -2,9 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 export default function Home() {
   return (
-    <section className="flex justify-center w-full">
-      <div className="container">
-        <div className="flex flex-col justify-center items-center h-screen w-full gap-y-[20px]">
+    <section className="w-full ">
+      <div className=" flex justify-center items-center h-screen ">
+        <div className="">
+          <Image
+            src="/images/phoneinsta.png"
+            width={490}
+            height={600}
+            alt="Phone"
+          />
+        </div>
+        <div className="  flex-col flex gap-y-[20px]">
           <div className=" border border-gray-600 w-[350px] px-[40px] text-center pb-[20px] ">
             <div className=" flex justify-center">
               <Image
@@ -53,7 +61,7 @@ export default function Home() {
             </Link>
             <p className="pt-[20px]">Forgot password?</p>
           </div>
-          <div className="border border-gray-600  w-[350px]  flex justify-center py-[20px]">
+          <div className="border border-gray-600  w-[350px]  flex justify-center py-[20px] ">
             <p>
               Don't have an account?
               <Link href="#">
@@ -61,8 +69,8 @@ export default function Home() {
               </Link>
             </p>
           </div>
-          <p>Get the app.</p>
-          <div className="flex gap-[10px]">
+          <p className="text-center">Get the app.</p>
+          <div className="flex gap-[10px] justify-center">
             <Link href="https://apps.apple.com/us/app/instagram/id389801252">
               <Image
                 src="/images/Appstore.png"
