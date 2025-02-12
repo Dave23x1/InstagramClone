@@ -1,9 +1,10 @@
+import Footer from "@/app/partial/footer.jsx";
 import Image from "next/image";
 import Link from "next/link";
 export default function Home() {
   return (
     <section className="w-full ">
-      <div className=" flex justify-center items-center h-screen ">
+      <div className=" flex justify-center items-center pt-[140px]">
         <div className="">
           <Image
             src="/images/phoneinsta.png"
@@ -89,6 +90,9 @@ export default function Home() {
             </Link>
           </div>
         </div>
+      </div>
+      <div className="pt-[40px] ">
+        <Footer />
       </div>
     </section>
   );

@@ -1,0 +1,54 @@
+[
+  {
+    "page": "Meta",
+    "url": "https://about.meta.com//"
+  },
+  {
+    "page": "About",
+    "url": "https://about.meta.com/"
+  },
+  {
+    "page": "Blog",
+    "url": "https://about.instagram.com/blog/"
+  },
+  {
+    "page": "Jobs",
+    "url": "https://help.instagram.com/"
+  },
+  {
+    "page": "Help",
+    "url": "https://help.instagram.com/"
+  },
+  {
+    "page": "API",
+    "url": "https://developers.facebook.com/docs/instagram"
+  },
+  {
+    "page": "Privacy",
+    "url": "https://www.instagram.com/legal/privacy/"
+  },
+  {
+    "page": "Terms",
+    "url": "https://www.instagram.com/legal/terms/"
+  },
+  {
+    "page": "Locations",
+    "url": "https://www.instagram.com/explore/locations/"
+  },
+  {
+    "page": "Instagram Lite ",
+    "url": "https://www.instagram.com/web/lite/"
+  },
+  {
+    "page": "Threads",
+    "url": "https://www.threads.net/"
+  },
+  {
+    "page": "Contact Uploading & Non-Users",
+    "url": "https://www.facebook.com/help/instagram/261704639352628"
+  },
+  {
+    "page": "Meta Verified",
+    "url": "https://www.instagram.com/accounts/meta_verified/?entrypoint=web_footer"
+  }
+]
