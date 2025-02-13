@@ -25,7 +25,7 @@ export default function Footer() {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-white transition"
+            className="text-gray-400 hover:text-white transition text-[14px]"
           >
             {link.page}
           </a>
@@ -64,7 +64,7 @@ export default function Footer() {
                     setSelectedLanguage(lang);
                     setIsOpen(false);
                   }}
-                  className="px-4 py-2 cursor-pointer hover:bg-gray-700"
+                  className="px-4 py-2 cursor-pointer hover:bg-gray-600"
                 >
                   {lang}
                 </li>
@@ -72,10 +72,18 @@ export default function Footer() {
             </ul>
           )}
         </div>
-
-        <p className="text-sm">
-          &copy; {new Date().getFullYear()} Instagram from Meta
-        </p>
+        <div>
+          <p className="text-[14px] text-gray-400 text-center">
+            &copy; {new Date().getFullYear()} DA VE WEB P.
+          </p>
+          <p className="text-[10px] pt-[10px]">
+            <span className="text-[14px]">Desclaimer: </span>
+            <span className="text-red-400">This</span> website is just a clone
+            and is not affiliated <span className="text-blue-400">with</span>{" "}
+            <span className="text-red-400">Instagram</span> or{" "}
+            <span className="text-red-400">Meta</span>.
+          </p>
+        </div>
       </div>
     </footer>
   );
