@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-const links = {
-  signin:
-    process.env.NEXT_PUBLIC_SIGNIN_URL || "https://default-signin-url.com",
-};
+const signinUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/"
+    : "https://instagram-clone-ten-dusky.vercel.app/";
+
 export default function SignUp() {
   return (
     <div className="flex justify-center pt-[20px]">
@@ -101,7 +102,7 @@ export default function SignUp() {
         <div className="border border-gray-600 w-[350px] flex justify-center py-[20px]">
           <p>
             Have an account?
-            <Link href={links.signin}>
+            <Link href={signinUrl}>
               <span className="text-blue-500 font-semibold"> Log in</span>
             </Link>
           </p>
