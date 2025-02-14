@@ -5,7 +5,7 @@ import Phone from "./block/phoneSlide.jsx";
 const signupUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/accounts/emailsignup"
-    : "https://instagram-chi-navy.vercel.app/accounts/emailsignup";
+    : "https://instagram-clone-dave.vercel.app//accounts/emailsignup";
 
 export default function Home() {
   return (
@@ -33,7 +33,7 @@ export default function Home() {
                 height={51}
                 alt="Instagram"
                 className="pt-[50px]"
-              /> 
+              />
             </div>
             <form className="flex gap-y-2 flex-col pt-[30px]">
               <label htmlFor="username" className="sr-only">
