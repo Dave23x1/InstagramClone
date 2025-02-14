@@ -5,7 +5,7 @@ import Phone from "./block/phoneSlide.jsx";
 const signupUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/accounts/emailsignup"
-    : "https://instagram-clone-ten-dusky.vercel.app/accounts/emailsignup";
+    : "https://instagram-clone-dave.vercel.app/accounts/emailsignup";
 
 export default function Home() {
   return (

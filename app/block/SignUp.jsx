@@ -3,7 +3,7 @@ import Image from "next/image";
 const signinUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/"
-    : "https://instagram-clone-ten-dusky.vercel.app/";
+    : "https://instagram-clone-dave.vercel.app/";
 
 export default function SignUp() {
   return (
