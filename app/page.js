@@ -79,7 +79,7 @@ export default function Home() {
           <div className="border border-gray-600 w-[350px] flex justify-center py-[20px]">
             <p>
               Don't have an account?
-              <Link href="#">
+              <Link href="http://localhost:3000/accounts/emailsignup">
                 <span className="text-blue-500 font-semibold"> Sign up</span>
               </Link>
             </p>
@@ -104,9 +104,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </div>
-      <div className="pt-[40px]">
-        <Footer />
       </div>
     </section>
   );

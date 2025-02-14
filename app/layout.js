@@ -1,3 +1,5 @@
+import Footer from "@/app/partial/footer.jsx";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -23,6 +25,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <div className="pt-[40px]">
+          <Footer />
+        </div>
       </body>
     </html>
   );
