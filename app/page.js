@@ -2,6 +2,11 @@ import Footer from "@/app/partial/footer.jsx";
 import Image from "next/image";
 import Link from "next/link";
 import Phone from "./block/phoneSlide.jsx";
+
+const signupUrl =
+  process.env.NEXT_PUBLIC_BASE_URL === "development"
+    ? "http://localhost:3000/accounts/emailsignup"
+    : "https://instagram-chi-navy.vercel.app/accounts/emailsignup";
 export default function Home() {
   return (
     <section className="w-full">
@@ -79,7 +84,7 @@ export default function Home() {
           <div className="border border-gray-600 w-[350px] flex justify-center py-[20px]">
             <p>
               Don't have an account?
-              <Link href="http://localhost:3000/accounts/emailsignup">
+              <Link href={signupUrl}>
                 <span className="text-blue-500 font-semibold"> Sign up</span>
               </Link>
             </p>
