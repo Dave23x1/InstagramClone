@@ -18,7 +18,7 @@ export default function Footer() {
 
   return (
     <footer className="py-4">
-      <div className="container mx-auto flex flex-wrap justify-center space-x-4">
+      <div className="container mx-auto text-center  flex flex-wrap justify-center space-x-4">
         {pagelink.map((link, index) => (
           <a
             key={index}
@@ -32,7 +32,7 @@ export default function Footer() {
         ))}
       </div>
 
-      <div className="justify-center flex pt-[10px] gap-2 text-gray-500 relative">
+      <div className="justify-center text-center flex pt-[10px] gap-2 text-gray-500 relative">
         <div className="relative">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -56,7 +56,7 @@ export default function Footer() {
           </button>
 
           {isOpen && (
-            <ul className="absolute bottom-8 left-0 w-32 bg-gray-800 text-white rounded-lg shadow-lg">
+            <ul className="absolute bottom-8 left-0  bg-gray-800 text-white rounded-lg shadow-lg">
               {languages.map((lang, index) => (
                 <li
                   key={index}
@@ -72,7 +72,7 @@ export default function Footer() {
             </ul>
           )}
         </div>
-        <div>
+        <div className="text-center">
           <p className="text-[14px] text-gray-400 text-center">
             &copy; {new Date().getFullYear()} DA VE WEB P.
           </p>
