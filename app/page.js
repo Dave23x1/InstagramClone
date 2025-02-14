@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Phone from "./block/phoneSlide.jsx";
 
-const links = {
-  signup:
-    process.env.NEXT_PUBLIC_SIGNUP_URL || "https://default-signup-url.com",
-};
+const signupUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/accounts/emailsignup"
+    : "https://instagram-clone-ten-dusky.vercel.app/accounts/emailsignup";
+
 export default function Home() {
   return (
     <section className="w-full">
@@ -83,7 +84,7 @@ export default function Home() {
           <div className="border border-gray-600 w-[350px] flex justify-center py-[20px]">
             <p>
               Don't have an account?
-              <Link href={links.signup}>
+              <Link href={signupUrl}>
                 <span className="text-blue-500 font-semibold"> Sign up</span>
               </Link>
             </p>
