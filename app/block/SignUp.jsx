@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 const signinUrl =
@@ -6,6 +8,30 @@ const signinUrl =
     : "https://instagram-clone-dave.vercel.app/";
 
 export default function SignUp() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [username, setUsername] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password, fullname, username }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("User created successfully!");
+    } else {
+      alert(data.message || "Something went wrong");
+    }
+  };
   return (
     <div className="flex justify-center pt-[20px]">
       <div className="flex flex-col gap-y-[20px] ">
@@ -42,16 +68,21 @@ export default function SignUp() {
             <span className="mx-4 text-gray-400 font-semibold">OR</span>
             <hr className="flex-grow border-t-2 border-gray-600" />
           </div>
-          <form className="flex gap-y-2 flex-col pt-[30px]">
-            <label htmlFor="username" className="sr-only">
+          <form
+            className="flex gap-y-2 flex-col pt-[30px]"
+            onSubmit={handleSubmit}
+          >
+            <label htmlFor="email" className="sr-only">
               Phone number, username, or email
             </label>
             <input
-              type="text"
-              id="username"
+              type="email"
+              id="email"
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Mobile Number or Email"
-              aria-label="Phone number, username, or email"
+              aria-label=""
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <label htmlFor="password" className="sr-only">
               Password
@@ -62,6 +93,8 @@ export default function SignUp() {
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Password"
               aria-label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <input
               type="text"
@@ -69,6 +102,8 @@ export default function SignUp() {
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Full Name"
               aria-label="Full Name"
+              value={fullname}
+              onChange={(e) => setFullname(e.target.value)}
             />
             <input
               type="text"
@@ -76,7 +111,17 @@ export default function SignUp() {
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Username"
               aria-label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
+            <div className="pt-[20px]">
+              <button
+                type="submit"
+                className="bg-[#0168AD] w-full rounded-lg py-1 font-semibold text-gray-300"
+              >
+                Sign up
+              </button>
+            </div>
           </form>
           <div className="">
             <p className="text-gray-400 text-[12px] pt-[12px]">
@@ -92,11 +137,6 @@ export default function SignUp() {
               <span className="text-white">Privacy Policy</span> and{" "}
               <span className="text-white">Cookies Policy .</span>
             </p>
-          </div>
-          <div className="pt-[20px]">
-            <button className="bg-[#0168AD] w-full rounded-lg py-1 font-semibold text-gray-300">
-              Log in
-            </button>
           </div>
         </div>
         <div className="border border-gray-600 w-[350px] flex justify-center py-[20px]">
