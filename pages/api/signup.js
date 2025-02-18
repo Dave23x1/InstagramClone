@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     if (user) {
       return res.status(400).json({ message: "User already exists" });
     } else {
-      const hashedPassword = bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = {
         email,
