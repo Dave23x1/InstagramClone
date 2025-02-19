@@ -27,7 +27,7 @@ export default function Login() {
 
     if (response.ok) {
       alert(data.message);
-      location.href = "/dashboard";
+      window.location.href = "/dashboard";
     } else {
       setError(data.message);
     }
