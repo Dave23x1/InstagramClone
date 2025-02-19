@@ -102,7 +102,7 @@ export default function SignUp() {
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Full Name"
               aria-label="Full Name"
-              value={fullname}
+              value={fullname}login
               onChange={(e) => setFullname(e.target.value)}
             />
             <input

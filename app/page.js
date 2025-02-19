@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Phone from "./block/phoneSlide.jsx";
 import Login from "./block/Login.jsx";
+
 const signupUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/accounts/emailsignup"
