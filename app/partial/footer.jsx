@@ -17,7 +17,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="py-4">
+    <footer className="py-4 z-[10]">
       <div className="container mx-auto text-center  flex flex-wrap justify-center space-x-4">
         {pagelink.map((link, index) => (
           <a
