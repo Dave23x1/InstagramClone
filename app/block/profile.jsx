@@ -1,48 +1,27 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import jwt from "jsonwebtoken";
 import { parseCookies } from "nookies";
 
 export default function Dashboard() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const cookies = parseCookies();
-
-  const token = cookies.authToken;
-  const decoded = token ? jwt.decode(token) : null;
+  const { authToken: token } = parseCookies();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        if (decoded?.username) {
-          const userRes = await fetch(`/api/user/${decoded.username}`);
-          if (!userRes.ok) throw new Error("User not found");
+    if (!token) return;
 
-          const userData = await userRes.json();
-          setUser(userData);
-        } else {
-          throw new Error("Invalid token");
-        }
+    const decoded = jwt.decode(token);
+    if (!decoded?.username) return console.error("Invalid token");
 
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        router.push("/");
-      }
-    };
-
-    if (token) checkAuth();
-    else router.push("/");
-  }, [router, token]);
-
-  if (loading) return <p>Loading...</p>;
+    fetch(`/api/user/${decoded.username}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject("User not found")))
+      .then(setUser)
+      .catch(console.error);
+  }, [token]);
 
   return (
     <section>
       <div>
-        <h1>Dashboard</h1>
         {user ? (
           <div>
             <p>

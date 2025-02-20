@@ -1,10 +1,14 @@
 "use client";
 import { destroyCookie } from "nookies";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import jwt from "jsonwebtoken";
+import { parseCookies } from "nookies";
 import Image from "next/image";
 export default function Menu({ setIsAuthenticated }) {
   const router = useRouter();
+  const [user, setUser] = useState(null);
+  const { authToken: token } = parseCookies();
   const [isOpen, setIsOpen] = useState(false);
   const handleLogout = async () => {
     try {
@@ -22,7 +26,17 @@ export default function Menu({ setIsAuthenticated }) {
       console.error("Logout error:", error);
     }
   };
+  useEffect(() => {
+    if (!token) return;
 
+    const decoded = jwt.decode(token);
+    if (!decoded?.username) return console.error("Invalid token");
+
+    fetch(`/api/user/${decoded.username}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject("User not found")))
+      .then(setUser)
+      .catch(console.error);
+  }, [token]);
   return (
     <nav className="p-4  border border-l-0 border-r-[#262727] border-t-[#262727] border-b-[#262727] text-white w-[270px] h-[calc(100vh)] fixed z-[20] ">
       <div className="py-4 ">
@@ -220,16 +234,21 @@ export default function Menu({ setIsAuthenticated }) {
               <span className="font-semibold">Create</span>
             </div>
           </div>
-          <div className="flex gap-2   hover:bg-[#363737] rounded-md px-2  py-4">
-            <Image
-              src="/path-to-your-image.jpg"
-              width={23}
-              height={23}
-              alt="Profile"
-              className="rounded-full"
-            />
-            <span className="font-semibold">Profile</span>
-          </div>
+          {user ? (
+            <div className="flex gap-2   hover:bg-[#363737] rounded-md px-2  py-4">
+              <Image
+                src="/path-to-your-image.jpg"
+                width={23}
+                height={23}
+                alt="Profile"
+                className="rounded-full"
+              />
+              <span className="font-semibold">{user.username}</span>
+            </div>
+          ) : (
+            <p>User not found.</p>
+          )}
+
           <div className="pt-[320px]">
             <div className="flex gap-2 py-4 hover:bg-[#363737] rounded-md px-2 ">
               <svg
