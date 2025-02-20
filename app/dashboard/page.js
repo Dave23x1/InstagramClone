@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Menu from "../partial/menu";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -25,9 +24,5 @@ export default function Dashboard() {
 
   if (loading) return <p>Loading...</p>;
 
-  return (
-    <section>
-      <Menu />
-    </section>
-  );
+  return <section></section>;
 }

@@ -35,7 +35,7 @@ export default async function handler(req, res) {
 
     // Generate JWT token
     const token = jwt.sign(
-      { userId: user._id, email: user.email }, // Avoid exposing unnecessary data
+      { username: user.username, userId: user._id, email: user.email }, // Avoid exposing unnecessary data
       JWT_SECRET_KEY,
       { expiresIn: "1h" }
     );

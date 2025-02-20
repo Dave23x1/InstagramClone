@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 const PATHS = {
   ROOT: "/",
   DASHBOARD: "/dashboard",
-  USER: "/user",
+  USER: "/users",
 };
 
 const protectedRoutes = Object.values(PATHS).filter(

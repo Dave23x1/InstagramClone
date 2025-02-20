@@ -1,18 +1,25 @@
 "use client";
-
+import { destroyCookie } from "nookies";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-export default function Menu() {
+export default function Menu({ setIsAuthenticated }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const handleLogout = async () => {
-    const response = await fetch("/api/logout", { method: "POST" });
+    try {
+      const response = await fetch("/api/logout", { method: "POST" });
 
-    if (response.ok) {
-      router.push("/");
-    } else {
-      alert("Logout failed. Try again.");
+      if (response.ok) {
+        destroyCookie(null, "authToken");
+        setIsAuthenticated(false);
+        window.dispatchEvent(new Event("authChange"));
+        router.push("/");
+      } else {
+        alert("Logout failed. Try again.");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
     }
   };
 
