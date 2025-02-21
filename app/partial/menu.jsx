@@ -239,13 +239,13 @@ export default function Menu({ setIsAuthenticated }) {
             <Link href={`/${user.username}`}>
               <div className="flex gap-2   hover:bg-[#363737] rounded-md px-2  py-4">
                 <Image
-                  src="/path-to-your-image.jpg"
+                  src={user.profile || "/default-avatar.png"}
                   width={23}
                   height={23}
                   alt="Profile"
-                  className="rounded-full border border-white"
+                  className="rounded-full border border-white "
                 />
-                <span className="font-semibold">{user.username}</span>
+                <span className="font-semibold">Profile</span>
               </div>
             </Link>
           ) : (

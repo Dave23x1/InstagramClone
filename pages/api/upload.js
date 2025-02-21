@@ -44,8 +44,8 @@ export default async function handler(req, res) {
     }
 
     const file = files.file;
-    const newFilename = file.newFilename || file.originalFilename; // ✅ Fix: Ensure filename exists
-    const filePath = `/upload/${newFilename}`; // ✅ Fix: Use correct filename
+    const newFilename = file.newFilename || file.originalFilename;
+    const filePath = `/upload/${newFilename}`;
     const name = Array.isArray(files.file) ? files.file[0] : files.file;
     console.log("Parsed file:", name.newFilename);
 
@@ -53,14 +53,12 @@ export default async function handler(req, res) {
       const { database } = await connectToDatabase();
       const usersCollection = database.collection("user");
 
-      // Debugging: Ensure user exists
       const userExists = await usersCollection.findOne({ username });
       if (!userExists) {
         console.log("User not found in database:", username);
         return res.status(404).json({ message: "User not found" });
       }
 
-      // ✅ Update user profile picture in MongoDB
       await usersCollection.updateOne(
         { username },
         { $set: { profile: `/upload/${name.newFilename}` } }

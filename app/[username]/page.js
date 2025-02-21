@@ -53,8 +53,8 @@ export default function Dashboard() {
   const handleRemovePhoto = async () => {
     if (!user?.username) return;
 
-    setLoading(true); // Show loading state
-    setShowModal(false); // Close modal
+    setLoading(true);
+    setShowModal(false);
 
     try {
       const response = await fetch("/api/remove-photo", {
@@ -64,21 +64,20 @@ export default function Dashboard() {
       });
       if (!response.ok) throw new Error(await response.text());
 
-      setUser((prev) => ({ ...prev, profile: null })); // Remove profile image
+      setUser((prev) => ({ ...prev, profile: null }));
     } catch (error) {
       console.error("Remove Error:", error.message);
     } finally {
-      setLoading(false); // Hide loading state
+      setLoading(false);
     }
   };
 
   return (
-    <section className="w-full mx-auto container px-36 text-center">
+    <section className="w-full mx-auto container px-36  pt-[60px]">
       {user ? (
-        <div>
-          {/* Profile Picture */}
+        <div className="px-[330px] flex gap-[90px]">
           <div
-            className="w-[150px] h-[150px] mx-auto rounded-full cursor-pointer border border-[#262727] overflow-hidden flex items-center justify-center"
+            className="w-[150px] h-[150px]  rounded-full cursor-pointer border border-[#262727] overflow-hidden flex items-center "
             onClick={() => setShowModal(true)} // Show modal when clicked
           >
             {loading ? (
@@ -89,19 +88,18 @@ export default function Dashboard() {
                 alt="Profile"
                 height={150}
                 width={150}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover "
               />
             )}
           </div>
-          <p className="mt-3 font-bold text-lg">{user.username}</p>
-          <p>{user.email}</p>
-          <p>{user.fullname}</p>
+          <div>
+            <p className="mt-3 font-bold text-lg">{user.username}</p>
+          </div>
         </div>
       ) : (
         <p>User not found.</p>
       )}
 
-      {/* Hidden File Input */}
       <input
         type="file"
         ref={fileInputRef}
