@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import jwt from "jsonwebtoken";
 import { parseCookies } from "nookies";
 import Image from "next/image";
+import Link from "next/link";
 export default function Menu({ setIsAuthenticated }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -38,7 +39,7 @@ export default function Menu({ setIsAuthenticated }) {
       .catch(console.error);
   }, [token]);
   return (
-    <nav className="p-4  border border-l-0 border-r-[#262727] border-t-[#262727] border-b-[#262727] text-white w-[270px] h-[calc(100vh)] fixed z-[20] ">
+    <nav className="p-4  border border-l-0 border-r-[#262727] border-t-0 border-b-0 text-white w-[270px] h-[calc(100vh)] fixed z-[20] ">
       <div className="py-4 ">
         <Image
           src="/images/instagram.png"
@@ -235,16 +236,18 @@ export default function Menu({ setIsAuthenticated }) {
             </div>
           </div>
           {user ? (
-            <div className="flex gap-2   hover:bg-[#363737] rounded-md px-2  py-4">
-              <Image
-                src="/path-to-your-image.jpg"
-                width={23}
-                height={23}
-                alt="Profile"
-                className="rounded-full"
-              />
-              <span className="font-semibold">{user.username}</span>
-            </div>
+            <Link href={`/${user.username}`}>
+              <div className="flex gap-2   hover:bg-[#363737] rounded-md px-2  py-4">
+                <Image
+                  src="/path-to-your-image.jpg"
+                  width={23}
+                  height={23}
+                  alt="Profile"
+                  className="rounded-full border border-white"
+                />
+                <span className="font-semibold">{user.username}</span>
+              </div>
+            </Link>
           ) : (
             <p>User not found.</p>
           )}

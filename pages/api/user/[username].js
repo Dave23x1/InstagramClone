@@ -26,6 +26,7 @@ export default async function handler(req, res) {
       email: user.email,
       fullname: user.fullname,
       username: user.username,
+      profile: user.profile,
     });
   } catch (error) {
     console.error("Database error:", error);

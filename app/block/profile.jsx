@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   return (
     <section>
-      <div>
+      <div className="">
         {user ? (
           <div>
             <p>

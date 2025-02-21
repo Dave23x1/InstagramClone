@@ -23,5 +23,7 @@ export default function Dashboard() {
 
   if (loading) return <p>Loading...</p>;
 
-  return <section></section>;
+  return <section>
+    
+  </section>;
 }
