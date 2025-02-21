@@ -122,7 +122,7 @@ export default function Dashboard() {
 
             <div className="flex flex-col gap-3 ">
               <button
-                className="text-[#0978C3] font-semibold px-4 py-2 rounded-md"
+                className="text-[#0978C3] font-semibold py-3  border-b-[#3e3d3e] border border-t-0 border-l-0 border-r-0"
                 onClick={() => fileInputRef.current?.click()}
               >
                 Upload Photo
@@ -130,7 +130,7 @@ export default function Dashboard() {
 
               {user.profile && (
                 <button
-                  className="text-[#E74854] font-semibold px-4 py-2 rounded-md"
+                  className="text-[#E74854] font-semibold py-3  border-b-[#3e3d3e] border border-t-0 border-l-0 border-r-0 "
                   onClick={handleRemovePhoto}
                 >
                   Remove Current Photo
