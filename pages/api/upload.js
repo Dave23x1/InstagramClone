@@ -1,80 +1,70 @@
-import path from "path";
-import { IncomingForm } from "formidable";
-import fs from "fs";
-import { connectToDatabase } from "@/lib/mongodb";
+import multer from "multer";
+import cloudinary from "cloudinary";
+import { connectToDatabase } from "@/lib/mongodb.js";
+
+// Configure Cloudinary
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Use Multer Memory Storage (No Local Files)
+const upload = multer({ storage: multer.memoryStorage() });
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, // Next.js must disable bodyParser for file uploads
   },
 };
 
-export default async function handler(req, res) {
+export default function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  const form = new IncomingForm({
-    uploadDir: path.join(process.cwd(), "public/upload"),
-    keepExtensions: true,
-    multiples: false,
-  });
-
-  if (!fs.existsSync(form.uploadDir)) {
-    fs.mkdirSync(form.uploadDir, { recursive: true });
-  }
-
-  form.parse(req, async (err, fields, files) => {
+  upload.single("file")(req, res, async (err) => {
     if (err) {
-      console.error("Error parsing form:", err);
-      return res.status(500).json({ message: "Upload error" });
+      return res.status(500).json({ message: "Multer error", error: err.message });
     }
 
-    const username = Array.isArray(fields.username)
-      ? fields.username[0]
-      : fields.username;
-    console.log("Checking for username:", username);
-
-    if (!username) {
-      return res.status(400).json({ message: "Username is required" });
-    }
-
-    if (!files.file) {
+    if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const file = files.file;
-    const newFilename = file.newFilename || file.originalFilename;
-    const filePath = `/upload/${newFilename}`;
-    const name = Array.isArray(files.file) ? files.file[0] : files.file;
-    console.log("Parsed file:", name.newFilename);
-
     try {
+      const { username } = req.body; // Get username from request
+      if (!username) {
+        return res.status(400).json({ message: "Username is required" });
+      }
+
+      // Convert buffer to base64 string for Cloudinary upload
+      const fileBuffer = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+
+      // Upload file directly to Cloudinary from memory
+      const result = await cloudinary.v2.uploader.upload(fileBuffer, {
+        folder: "nextjs_uploads",
+      });
+
+      // Save profile URL in MongoDB
       const { database } = await connectToDatabase();
       const usersCollection = database.collection("user");
 
-      const userExists = await usersCollection.findOne({ username });
-      if (!userExists) {
-        console.log("User not found in database:", username);
+      const updateResult = await usersCollection.updateOne(
+        { username }, 
+        { $set: { profile: result.secure_url } } 
+      );
+
+      if (updateResult.matchedCount === 0) {
         return res.status(404).json({ message: "User not found" });
       }
 
-      await usersCollection.updateOne(
-        { username },
-        { $set: { profile: `/upload/${name.newFilename}` } }
-      );
-
-      console.log("Updated profile picture:", filePath);
-
       return res.status(200).json({
         message: "Profile updated successfully",
-        profilePic: filePath,
+        profile: result.secure_url,
       });
     } catch (error) {
-      console.error("Database update error:", error);
-      return res
-        .status(500)
-        .json({ message: "Database update error", error: error.message });
+      return res.status(500).json({ message: "Upload error", error: error.message });
     }
   });
 }

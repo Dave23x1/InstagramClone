@@ -78,13 +78,13 @@ export default function Dashboard() {
         <div className="px-[330px] flex gap-[90px]">
           <div
             className="w-[150px] h-[150px]  rounded-full cursor-pointer border border-[#262727] overflow-hidden flex items-center "
-            onClick={() => setShowModal(true)} // Show modal when clicked
+            onClick={() => setShowModal(true)}
           >
             {loading ? (
               <div className="w-8 h-8 border-4 border-gray-300 border-t-[#0978C3] rounded-full animate-spin"></div>
             ) : (
               <Image
-                src={user.profile || "/default-avatar.png"}
+                src={user.profile}
                 alt="Profile"
                 height={150}
                 width={150}
