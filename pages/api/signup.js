@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
       const newUser = {
         email,
-        profile,
+        profile: profile || "/default-profile.png",
         password: hashedPassword,
         fullname,
         username,
