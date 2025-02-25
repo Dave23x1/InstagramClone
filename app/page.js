@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import Phone from "./block/phoneSlide.jsx";
 import Login from "./block/Login.jsx";
+import { signIn } from "next-auth/react";
 
 const signupUrl =
   process.env.NODE_ENV === "development"
@@ -43,7 +46,7 @@ export default function Home() {
               <span className="mx-4 text-gray-400 font-semibold">OR</span>
               <hr className="flex-grow border-t-2 border-gray-600" />
             </div>
-            <Link href="#">
+            <button onClick={() => signIn("facebook")}>
               <div className="pt-[20px] flex gap-[10px] justify-center items-center">
                 <Image
                   src="/images/Facebookic.png"
@@ -55,7 +58,7 @@ export default function Home() {
                   Log in with Facebook
                 </p>
               </div>
-            </Link>
+            </button>
             <p className="pt-[20px]">Forgot password?</p>
           </div>
 
