@@ -6,23 +6,24 @@ import { useSession } from "next-auth/react";
 
 export default function Dashboard() {
   const router = useRouter();
-  const session = useSession();
+  const sessionData = useSession(); // Fix: Prevents destructuring from undefined
+  const { data: session, status } = sessionData || {}; // Fix: Avoids destructuring undefined
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (session.status === "unauthenticated") {
+    if (status === "unauthenticated") {
       router.push("/");
-    } else if (session.status === "authenticated") {
+    } else if (status === "authenticated") {
       setLoading(false);
     }
-  }, [session.status, router]);
+  }, [status, router]);
 
   if (loading) return <p>Loading...</p>;
 
   return (
     <section>
-      {session?.data && <p>Welcome, {session.data.user.name}!</p>}
-      {/* Render menu bar */}
+      {session?.user?.name ? <p>Welcome, {session.user.name}!</p> : null}
+      {/* ✅ Render menu bar here */}
     </section>
   );
 }
