@@ -5,7 +5,7 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 export default function handler(req, res) {
   const cookies = parse(req.headers.cookie || "");
-  const token = cookies.authToken;4
+  const token = cookies.authToken;
 
   if (!token) {
     return res.status(401).json({ message: "Not authenticated" });
