@@ -1,24 +1,29 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-
 export default function Dashboard() {
-  const { data: session, status } = useSession();
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
+    const checkAuth = async () => {
+      const response = await fetch("/api/checkAuth");
+      const data = await response.json();
 
-  if (status === "loading") return <p>Loading...</p>;
+      if (!response.ok) {
+        router.push("/");
+      } else {
+        setLoading(false);
+      }
+    };
 
-  return (
-    <section>
-      <h1>Welcome, {session?.user?.name}!</h1>
-    </section>
-  );
+    checkAuth();
+  }, [router]);
+
+  if (loading) return <p>Loading...</p>;
+
+  return <section>
+    
+  </section>;
 }
