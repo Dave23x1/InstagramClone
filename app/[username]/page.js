@@ -46,7 +46,7 @@ export default function Dashboard() {
     } catch (error) {
       console.error("Upload Error:", error.message);
     } finally {
-      setLoading(false); // Hide loading state
+      setLoading(false);
     }
   };
 
@@ -75,25 +75,41 @@ export default function Dashboard() {
   return (
     <section className="w-full mx-auto container px-36  pt-[60px]">
       {user ? (
-        <div className="px-[330px] flex gap-[90px]">
-          <div
-            className="w-[150px] h-[150px]  rounded-full cursor-pointer border border-[#262727] overflow-hidden flex items-center "
-            onClick={() => setShowModal(true)}
-          >
-            {loading ? (
-              <div className="w-8 h-8 border-4 border-gray-300 border-t-[#0978C3] rounded-full animate-spin"></div>
-            ) : (
-              <Image
-                src={user.profile}
-                alt="Profile"
-                height={150}
-                width={150}
-                className="w-full h-full object-cover "
-              />
-            )}
-          </div>
-          <div>
-            <p className="mt-3 font-bold text-lg">{user.username}</p>
+        <div className="px-[330px] ">
+          <div className="flex  gap-[50px]">
+            <div
+              className="w-[150px] h-[150px]  rounded-full cursor-pointer border border-[#262727] overflow-hidden flex items-center "
+              onClick={() => setShowModal(true)}
+            >
+              {loading ? (
+                <div className="w-8 h-8 border-4 border-gray-300 border-t-[#0978C3] rounded-full animate-spin"></div>
+              ) : (
+                <Image
+                  src={user.profile}
+                  alt="Profile"
+                  height={150}
+                  width={150}
+                  className="w-full h-full object-cover "
+                />
+              )}
+            </div>
+            <div className="flex gap-[30px]">
+              <div>
+                <p className=" font-bold text-lg">{user.username}</p>
+              </div>
+              <div className="flex gap-[10px]">
+                <div className="">
+                  <button className="bg-[#3e3e3e] hover:bg-[#282828] py-1 px-2 rounded-md">
+                    Edit profile
+                  </button>
+                </div>
+                <div className="">
+                  <button className="bg-[#3e3e3e] hover:bg-[#282828] py-1 px-2 rounded-md">
+                    View archive
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
