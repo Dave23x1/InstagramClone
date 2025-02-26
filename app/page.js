@@ -9,7 +9,7 @@ import { signIn } from "next-auth/react";
 const signupUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/accounts/emailsignup"
-    : "https://instagram-clone-dave.vercel.app/accounts/emailsignup";
+    : "https://instagram-clone-fawn-pi.vercel.app//accounts/emailsignup";
 
 export default function Home() {
   return (

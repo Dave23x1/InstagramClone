@@ -5,7 +5,7 @@ import Image from "next/image";
 const signinUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/"
-    : "https://instagram-clone-dave.vercel.app/";
+    : "https://instagram-clone-fawn-pi.vercel.app/";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -102,7 +102,8 @@ export default function SignUp() {
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Full Name"
               aria-label="Full Name"
-              value={fullname}login
+              value={fullname}
+              login
               onChange={(e) => setFullname(e.target.value)}
             />
             <input
