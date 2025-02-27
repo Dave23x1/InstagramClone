@@ -1,40 +1,59 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // ✅ Use correct import for App Router
 import Link from "next/link";
 import Image from "next/image";
+
 const signinUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/"
     : "https://instagram-clone-fawn-pi.vercel.app/";
 
 export default function SignUp() {
+  const router = useRouter(); // ✅ Correct way to handle navigation in App Router
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password, fullname, username }),
-    });
+    if (!email || !password || !fullname || !username) {
+      alert("Please fill in all fields.");
+      return;
+    }
 
-    const data = await response.json();
+    setLoading(true);
 
-    if (response.ok) {
-      alert("User created successfully!");
-    } else {
-      alert(data.message || "Something went wrong");
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, fullname, username }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("User created successfully!");
+        router.push("/"); // ✅ Redirect to login page after successful signup
+      } else {
+        alert(data.message || "Something went wrong");
+      }
+    } catch (error) {
+      alert("Error signing up. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="flex justify-center pt-[20px]">
-      <div className="flex flex-col gap-y-[20px] ">
+      <div className="flex flex-col gap-y-[20px]">
         <div className="border border-gray-600 w-[350px] px-[40px] text-center pb-[20px]">
           <div className="flex justify-center">
             <Image
@@ -80,9 +99,9 @@ export default function SignUp() {
               id="email"
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Mobile Number or Email"
-              aria-label=""
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             <label htmlFor="password" className="sr-only">
               Password
@@ -92,51 +111,51 @@ export default function SignUp() {
               type="password"
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Password"
-              aria-label="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <input
               type="text"
               id="fullname"
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Full Name"
-              aria-label="Full Name"
               value={fullname}
-              login
               onChange={(e) => setFullname(e.target.value)}
+              required
             />
             <input
               type="text"
               id="username"
               className="h-[34px] bg-[#121313] rounded-[3px] border-gray-600 border px-2 text-[13px]"
               placeholder="Username"
-              aria-label="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
             <div className="pt-[20px]">
               <button
                 type="submit"
                 className="bg-[#0168AD] w-full rounded-lg py-1 font-semibold text-gray-300"
+                disabled={loading}
               >
-                Sign up
+                {loading ? "Signing up..." : "Sign up"}
               </button>
             </div>
           </form>
-          <div className="">
+          <div>
             <p className="text-gray-400 text-[12px] pt-[12px]">
               People who use our service may have uploaded your contact
               information to Instagram.
               <Link href="https://www.facebook.com/help/instagram/261704639352628">
-                <span className="text-white text-[12px] "> Learn More</span>
+                <span className="text-white text-[12px]"> Learn More</span>
               </Link>
             </p>
             <p className="text-gray-400 text-[12px] pt-[12px]">
               By signing up, you agree to our{" "}
-              <span className="text-white">Terms</span> ,{" "}
-              <span className="text-white">Privacy Policy</span> and{" "}
-              <span className="text-white">Cookies Policy .</span>
+              <span className="text-white">Terms</span>,{" "}
+              <span className="text-white">Privacy Policy</span>, and{" "}
+              <span className="text-white">Cookies Policy</span>.
             </p>
           </div>
         </div>
