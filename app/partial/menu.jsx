@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import { parseCookies } from "nookies";
 import Image from "next/image";
 import Link from "next/link";
+import Home from "@/app/icons/homeicon.jsx";
 export default function Menu({ setIsAuthenticated }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -38,6 +39,7 @@ export default function Menu({ setIsAuthenticated }) {
       .then(setUser)
       .catch(console.error);
   }, [token]);
+
   return (
     <nav className="p-4  border border-l-0 border-r-[#262727] border-t-0 border-b-0 text-white w-[270px] h-[calc(100vh)] fixed z-[20] ">
       <div className="py-4 ">
@@ -49,24 +51,11 @@ export default function Menu({ setIsAuthenticated }) {
         />
         <div className="pt-[40px]">
           <div className="flex gap-2 py-4 hover:bg-[#363737] rounded-md px-2">
-            <svg
-              aria-label="Home"
-              className=""
-              fill="currentColor"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
-            >
-              <title>Home</title>
-
-              <path d="M22 23h-6.001a1 1 0 0 1-1-1v-5.455a2.997 2.997 0 1 0-5.993 0V22a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V11.543a1.002 1.002 0 0 1 .31-.724l10-9.543a1.001 1.001 0 0 1 1.38 0l10 9.543a1.002 1.002 0 0 1 .31.724V22a1 1 0 0 1-1 1Z"></path>
-            </svg>
             <div className="">
               <span className="font-semibold">Home</span>
             </div>
           </div>
-          <div className="flex gap-2 py-4 hover:bg-[#363737] rounded-md px-2 ">
+          <div className="flex gap-2 py-4 hover:bg-[#363737] rounded-md px-2 cursor-pointer ">
             <svg
               aria-label="Search"
               className="x1lliihq x1n2onr6 x5n08af"
@@ -251,7 +240,6 @@ export default function Menu({ setIsAuthenticated }) {
           ) : (
             <p>User not found.</p>
           )}
-
           <div className="pt-[320px]">
             <div className="flex gap-2 py-4 hover:bg-[#363737] rounded-md px-2 ">
               <svg
